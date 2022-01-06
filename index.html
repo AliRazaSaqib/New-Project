@@ -1,0 +1,422 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>PopUp</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+    />
+    <!-- StyleSheet -->
+    <style>
+      /* font family include */
+      @font-face {
+        font-family: "Helvetica";
+        src: url("./fonts/Helvetica.ttf");
+      }
+
+      /* custom scroll add */
+      * {
+        scrollbar-color: #d3d3d3 #e8e8e8;
+      }
+
+      *::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      *::-webkit-scrollbar-track {
+        background: #e8e8e8;
+      }
+
+      *::-webkit-scrollbar-thumb {
+        background-color: #d3d3d3;
+      }
+
+      .scroll {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border-radius: 15px;
+        padding: 44px 0px;
+        width: 283px;
+        position: absolute;
+        right: 8px;
+        height: 380px;
+        bottom: 70px;
+        scroll-behavior: smooth;
+      }
+
+      /* main-background  */
+      .main_container {
+        background-image: url(./assets/testing-background.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        backdrop-filter: blur(2px);
+        height: 100vh;
+      }
+
+      .d-none {
+        display: none;
+      }
+      .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: unset;
+        width: 247px;
+        /* 442px */
+        max-height: 400px;
+        padding: 18px;
+        overflow: auto;
+        scroll-behavior: smooth;
+      }
+      .popup_head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .popup_head .brand {
+        font-family: Helvetica;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .popup_head .arrow img {
+        width: 17px;
+        cursor: pointer;
+      }
+      .popup_head .arrow img:hover {
+        transform: scale(1.2);
+        transition: all 0.3s ease-in-out;
+      }
+      .popup_head svg {
+        width: 74px;
+      }
+      .popup_body {
+        padding: 0 7px;
+        margin-top: 28px;
+        text-align: center;
+      }
+      .popup_body p {
+        font-family: Helvetica;
+        font-size: 13px;
+        font-weight: 300;
+        color: #383838;
+        line-height: 18px;
+      }
+      .popup_body p span {
+        font-weight: bold;
+      }
+      .popup_body .details h3 {
+        font-size: 14px;
+        line-height: 16px;
+        font-family: Helvetica;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+      }
+      .popup_body .details p {
+        font-size: 13px;
+        font-family: Helvetica;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        color: #b2b2b2;
+      }
+      .popup_body .details p a {
+        color: #4aabff;
+        text-decoration: none;
+        font-weight: normal;
+      }
+      .popup_body .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 4px;
+      }
+      .popup_body .buttons button {
+        border-radius: 5px;
+        font-size: 14px;
+        line-height: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        outline: none;
+      }
+      .popup_body .buttons :first-child {
+        border: 0.5px solid #707070;
+        opacity: 1;
+        color: #383838;
+        height: 26px;
+        width: 92px;
+      }
+      .popup_body .buttons :first-child:hover {
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.1);
+      }
+      .popup_body .buttons :not(:first-child) {
+        background: #f26341 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        color: #ffffff;
+        height: 26px;
+        width: 75px;
+      }
+      .popup_body .buttons :not(:first-child):hover {
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.1);
+      }
+      .popup_body .details:not(:first-child) {
+        margin-top: 40px;
+      }
+      .popup_body .details span:hover {
+        cursor: pointer;
+      }
+      .main_container .tag-background {
+        height: 54px;
+        width: 54px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        bottom: 24px;
+        right: 24px;
+        position: fixed;
+        cursor: pointer;
+        background: #02a6cd 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+      }
+
+      .main_container .tag-background img:hover {
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.1);
+      }
+      .paramid_icon {
+        width: 0px;
+        border-left: 12px dotted transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 18px solid #ffffff;
+        position: absolute;
+        right: 16px;
+        bottom: -12px;
+        transform: rotate(180deg);
+      }
+
+      .hover_disable {
+        transform: unset !important;
+        transition: unset !important;
+      }
+      /* media queries */
+      @media (max-width: 450px) {
+        .scroll {
+          width: 240px;
+          right: 20px;
+        }
+
+        .popup {
+          width: 204px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- PopUp body -->
+    <div class="main_container">
+      <div id="drag_icon">
+        <div class="tag-background" id="hoverremove">
+          <img
+            src="./assets/icon.svg"
+            class="icon"
+            onclick="popUpAppear()"
+            id="handle_hover"
+          />
+
+          <div class="scroll d-none" id="showPopup" onclick="holdOnClick()">
+            <div class="popup">
+              <div class="popup_head">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  version="1.1"
+                  id="Layer_1"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 374.4 101"
+                  style="enable-background: new 0 0 374.4 101"
+                  xml:space="preserve"
+                >
+                  <g>
+                    <g>
+                      <polygon
+                        class="st0"
+                        points="0,0 84.6,0 84.6,11.5 48.4,11.5 48.4,98.7 36.3,98.7 36.3,11.5 0,11.5   "
+                      />
+                      <polygon
+                        class="st0"
+                        points="267.3,87 267.3,98.7 202.3,98.7 202.3,0 214.6,0 214.6,87   "
+                      />
+                      <path
+                        class="st0"
+                        d="M166.4,0h12.2v58.8c0,5.7-0.7,11.1-1.8,16.1c-1.2,5.2-3.4,9.7-6.4,13.5c-3,3.9-7.1,7-12,9.2    c-4.9,2.3-11,3.4-18.1,3.4c-7.2,0-13.3-1.1-18.2-3.4c-5-2.2-9-5.3-12-9.2c-3-3.9-5.1-8.4-6.3-13.5c-1.2-5-1.8-10.4-1.8-16.1V0H114    v55.3c0,5.1,0.4,9.9,1.2,14.2c0.8,4.1,2.2,7.6,4.1,10.6c1.9,2.9,4.5,5.1,7.8,6.7c3.4,1.6,7.7,2.4,13.1,2.4c5.3,0,9.7-0.8,13-2.4    c3.3-1.6,5.9-3.8,7.8-6.7c2-2.9,3.4-6.5,4.1-10.6c0.8-4.3,1.2-9.1,1.2-14.2V0z"
+                      />
+                    </g>
+                    <g>
+                      <path
+                        class="st0"
+                        d="M334,0h-10.4l-40.3,98.7h13.2l12-30.1h40.2l12.2,30.1h13.6L334,0z M313.1,56.9l15.4-38.3l15.4,38.3H313.1z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+                <!-- <img class="logo" src="./assets/logo.svg" /> -->
+                <a href="#move_down" class="arrow"
+                  ><img src="./assets/arrow.svg"
+                /></a>
+              </div>
+              <!-- popup body -->
+              <div class="popup_body">
+                <p>
+                  <span>WE’RE MAKING IT EASY FOR YOU TO SAVE!</span> Just click
+                  ‘Apply’ button below and the promo code will be
+                </p>
+                <div class="details">
+                  <h3>FREE SHIPPING ON $75</h3>
+                  <p>Click <a href="#">here</a> for details</p>
+                  <div class="buttons">
+                    <button>CMKYN</button>
+                    <button>APPLY</button>
+                  </div>
+                </div>
+
+                <div class="details">
+                  <h3>$20 OFF ORDERS OVER $150</h3>
+                  <p>Click <a href="#">here</a> for details</p>
+                  <div class="buttons">
+                    <button>CMKYN</button>
+                    <button>APPLY</button>
+                  </div>
+                </div>
+
+                <div class="details">
+                  <h3>$15 OFF ORDERS OVER $125</h3>
+                  <p>Click <a href="#">here</a> for details</p>
+                  <div class="buttons">
+                    <button>CMKYN</button>
+                    <button>APPLY</button>
+                  </div>
+                </div>
+
+                <div class="details">
+                  <h3>$30 OFF ORDERS OVER $125</h3>
+                  <p>Click <a href="#">here</a> for details</p>
+                  <div class="buttons">
+                    <button>CMKYN</button>
+                    <button>APPLY</button>
+                  </div>
+                </div>
+
+                <div class="details">
+                  <h3>$50 OFF ORDERS OVER $125</h3>
+                  <p>Click <a href="#">here</a> for details</p>
+                  <div class="buttons">
+                    <button>CMKYN</button>
+                    <button>APPLY</button>
+                  </div>
+                </div>
+
+                <div class="details">
+                  <h3>$50 OFF ORDERS OVER $125</h3>
+                  <p>Click <a href="#">here</a> for details</p>
+                  <div class="buttons">
+                    <button>CMKYN</button>
+                    <button>APPLY</button>
+                  </div>
+                </div>
+
+                <div class="details" id="move_down">
+                  <h3>$50 OFF ORDERS OVER $125</h3>
+                  <p>Click <a href="#">here</a> for details</p>
+                  <div class="buttons">
+                    <button>CMKYN</button>
+                    <button>APPLY</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="paramid_icon"></div>
+          </div>
+        </div>
+
+        <div class="rectangle"></div>
+        <!-- blue tag iconn -->
+      </div>
+    </div>
+    <script>
+      window.addEventListener("click", outSideClick);
+      const popup = document.getElementById("showPopup");
+      const hoverRemove = document.getElementById("handle_hover");
+      console.log("running");
+      // Popup appear on click
+      function popUpAppear() {
+        console.log("run");
+        event.stopPropagation();
+        popup.classList.toggle("d-none");
+        hoverRemove.classList.toggle("hover_disable");
+      }
+      function holdOnClick() {
+        event.stopPropagation();
+      }
+      function outSideClick() {
+        popup.classList.add("d-none");
+      }
+    </script>
+
+    <script>
+      dragElement(document.getElementById("hoverremove"));
+
+      function dragElement(elmnt) {
+        console.log("draged");
+        var pos1 = 0,
+          pos2 = 0,
+          pos3 = 0,
+          pos4 = 0;
+        if (document.getElementById(elmnt.id + "hoverremove")) {
+          document.getElementById(elmnt.id + "hoverremove").onmousedown =
+            dragMouseDown;
+        } else {
+          elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+          e = e || window.event;
+          e.preventDefault();
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          document.onmouseup = closeDragElement;
+          document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+          e = e || window.event;
+          e.preventDefault();
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+          elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+        }
+
+        function closeDragElement() {
+          // stop moving when mouse button is released:
+          document.onmouseup = null;
+          document.onmousemove = null;
+        }
+      }
+    </script>
+  </body>
+</html>
