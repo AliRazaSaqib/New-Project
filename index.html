@@ -9,10 +9,14 @@
     <title>PopUp</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
+    <script src="jquery.ui.touch-punch.js"></script>
     <link
       rel="stylesheet"
       href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
     />
+
     <!-- StyleSheet -->
     <style>
       /* font family include */
@@ -221,7 +225,7 @@
           width: 204px;
         }
         .main_container .tag-background {
-          cursor: move;
+          cursor: all-scroll;
         }
       }
     </style>
@@ -376,6 +380,8 @@
       function outSideClick() {
         popup.classList.add("d-none");
       }
+
+      $("#hoverremove").draggable();
     </script>
 
     <script>
