@@ -14,6 +14,11 @@
     <script src="jquery.ui.touch-punch.js"></script>
     <link
       rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <link
+      rel="stylesheet"
       href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
     />
 
@@ -214,6 +219,7 @@
         transform: unset !important;
         transition: unset !important;
       }
+
       /* media queries */
       @media (max-width: 450px) {
         .scroll {
@@ -380,10 +386,8 @@
       function outSideClick() {
         popup.classList.add("d-none");
       }
-
-      $("#hoverremove").draggable();
     </script>
-
+    <!-- 
     <script>
       dragElement(document.getElementById("hoverremove"));
 
@@ -426,6 +430,13 @@
           document.onmousemove = null;
         }
       }
+    </script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script>
+      $(function () {
+        $("#hoverremove").draggable();
+      });
     </script>
   </body>
 </html>
