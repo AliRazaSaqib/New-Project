@@ -81,7 +81,9 @@
         /* 442px */
         max-height: 400px;
         padding: 18px;
-        overflow: scroll;
+        /* overflow: auto; */
+        overflow-y: scroll !important;
+        -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
       }
       .popup_head {
@@ -234,7 +236,6 @@
 
         .popup {
           width: 204px;
-          overflow: scroll;
         }
       }
     </style>
