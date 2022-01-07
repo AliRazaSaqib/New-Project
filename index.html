@@ -81,7 +81,7 @@
         /* 442px */
         max-height: 400px;
         padding: 18px;
-        overflow: auto;
+        overflow: scroll;
         scroll-behavior: smooth;
       }
       .popup_head {
@@ -221,6 +221,10 @@
         transition: unset !important;
       }
 
+      .ui-draggable-handle {
+        touch-action: auto !important;
+      }
+
       /* media queries */
       @media (max-width: 450px) {
         .scroll {
@@ -230,6 +234,7 @@
 
         .popup {
           width: 204px;
+          overflow: scroll;
         }
       }
     </style>
